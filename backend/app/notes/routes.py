@@ -61,7 +61,7 @@ def get_note(note_id):
         "last_edited" : note.last_edited.strftime("%Y-%m-%d %H:%M:%SZ")
     })
 
-@notes_bp.route('/update/<string:note_id>', methods=["PUT"])
+@notes_bp.route('/<string:note_id>', methods=["PUT"])
 @login_required
 def update_note(note_id):
     note = Note.query.filter_by(id=note_id, user_id=current_user.id).first()
@@ -90,7 +90,7 @@ def update_note(note_id):
             "message": "Note updated successfully"
         }), 200
 
-@notes_bp.route("/notes/<string:note_id>", methods=["DELETE"])
+@notes_bp.route("/<string:note_id>", methods=["DELETE"])
 @login_required
 def delete_note(note_id):
     note = Note.query.filter_by(id=note_id, user_id=current_user.id).first()
