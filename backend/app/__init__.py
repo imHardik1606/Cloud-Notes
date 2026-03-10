@@ -1,11 +1,19 @@
 from flask import Flask
 from .extensions import db, login_manager
 from .config import Config
+from flask_cors import CORS
 import logging
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Enable CORS using env variable
+    CORS(
+        app,
+        supports_credentials=True,
+        origins=[app.config["FRONTEND_URL"]]
+    )
 
     # Initialize extensions
     db.init_app(app)
@@ -20,11 +28,10 @@ def create_app():
     app.register_blueprint(notes_bp)
     app.register_blueprint(health_bp, url_prefix="/health")
 
-    # Set up logging
     logging.basicConfig(level=logging.INFO)
 
     with app.app_context():
-        from .models import User, Note  # Import models to register them with SQLAlchemy
-        db.create_all()  # Create tables if they don't exist
+        from .models import User, Note
+        db.create_all()
 
     return app
