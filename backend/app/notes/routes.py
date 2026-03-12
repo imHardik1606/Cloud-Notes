@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from datetime import datetime
+from datetime import datetime, timezone
 from marshmallow import ValidationError
 
 from app.schemas import NoteSchema
@@ -22,24 +22,37 @@ def create_note():
             "errors": err.messages
         }), 400
     
-    new_note = Note(user_id = current_user.id, title = data['title'], content = data['content'], created_at = datetime.now())
+    now = datetime.now(timezone.utc)
+    new_note = Note(
+        user_id=current_user.id,
+        title=data['title'],
+        content=data['content'],
+        created_at=now,
+        last_edited=now,  # match the creation time initially
+    )
 
     db.session.add(new_note)
     db.session.commit()
-    return jsonify({"success": True, "message": "Note created successfully!"}), 201
+    return jsonify({"success": True, "message": "Note created successfully!", "note": {
+        "id": new_note.id,
+        "title": new_note.title,
+        "content": new_note.content,
+        "created_at": new_note.created_at.strftime("%Y-%m-%d %H:%M:%SZ"),
+        "last_edited": new_note.last_edited.strftime("%Y-%m-%d %H:%M:%SZ"),
+    }}), 201
 
 @notes_bp.route('/', methods=["GET"])
 @login_required
 def all_notes():
-    notes = Note.query.filter_by(user_id = current_user.id).order_by(Note.created_at.desc()).all()
+    notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.created_at.desc()).all()
     return jsonify({
-        "notes" : [
+        "notes": [
             {
-                "id" : note.id,
-                "title" : note.title,
-                "content" : note.content,
-                "created_at" : note.created_at.strftime("%Y-%m-%d %H:%M:%SZ"),
-                "last_edited" : note.last_edited.strftime("%Y-%m-%d %H:%M:%SZ")
+                "id": note.id,
+                "title": note.title,
+                "content": note.content,
+                "created_at": note.created_at.strftime("%Y-%m-%d %H:%M:%SZ"),
+                "last_edited": note.last_edited.strftime("%Y-%m-%d %H:%M:%SZ"),
             }
             for note in notes
         ]
@@ -82,13 +95,21 @@ def update_note(note_id):
 
     note.title = data["title"]
     note.content = data["content"]
+    note.last_edited = datetime.now(timezone.utc)
 
     db.session.commit()
 
     return jsonify({
-            "success": True,
-            "message": "Note updated successfully"
-        }), 200
+        "success": True,
+        "message": "Note updated successfully",
+        "note": {
+            "id": note.id,
+            "title": note.title,
+            "content": note.content,
+            "created_at": note.created_at.strftime("%Y-%m-%d %H:%M:%SZ"),
+            "last_edited": note.last_edited.strftime("%Y-%m-%d %H:%M:%SZ"),
+        },
+    }), 200
 
 @notes_bp.route("/<string:note_id>", methods=["DELETE"])
 @login_required
