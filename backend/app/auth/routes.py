@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 from marshmallow import ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -34,6 +34,7 @@ def signup():
     new_user = User(username=username, email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
+    login_user(new_user)
     return jsonify({"success": True, "message": "User created successfully!"}), 201
 
 @auth_bp.route('/login', methods=['POST'])
@@ -62,3 +63,13 @@ def login():
 def logout():
     logout_user()
     return jsonify({"success": True, "message": "Logged out successfully!"}), 200
+
+
+@auth_bp.route('/me', methods=['GET'])
+@login_required
+def get_current_user():
+    return jsonify({
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email
+    })

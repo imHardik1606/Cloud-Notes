@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from .extensions import db, login_manager
 from .config import Config
 from flask_cors import CORS
@@ -18,6 +18,24 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
+
+    # Configure Flask-Login
+    login_manager.login_view = 'auth.login'
+    login_manager.login_message = 'Please log in to access this page.'
+    
+    # For API responses, return JSON instead of redirecting
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return jsonify({
+            "success": False,
+            "message": "Authentication required"
+        }), 401
+
+    # User loader callback
+    @login_manager.user_loader
+    def load_user(user_id):
+        from .models import User
+        return User.query.get(int(user_id))
 
     # Register Blueprints
     from .auth.routes import auth_bp

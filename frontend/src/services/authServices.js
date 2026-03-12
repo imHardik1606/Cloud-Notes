@@ -28,3 +28,15 @@ export const logout = async () => {
         throw error;
     }
 }
+
+export const getCurrentUser = async () => {
+    try {
+        const res = await api.get("/auth/me");
+        return res.data
+    } catch (error) {
+        console.log("Current User error:", error);
+        console.log("Response status:", error.response?.status);
+        console.log("Response data:", error.response?.data);
+        throw error
+    }
+}
