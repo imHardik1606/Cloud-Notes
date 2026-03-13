@@ -73,3 +73,13 @@ def get_current_user():
         "username": current_user.username,
         "email": current_user.email
     })
+
+@auth_bp.route('/check', methods=['GET'])
+def check_auth():
+    """Check if user is authenticated"""
+    if current_user.is_authenticated:
+        return jsonify({
+            'authenticated': True,
+            'user': current_user.to_dict()
+        }), 200
+    return jsonify({'authenticated': False}), 401

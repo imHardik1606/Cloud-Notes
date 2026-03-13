@@ -40,3 +40,13 @@ export const getCurrentUser = async () => {
         throw error
     }
 }
+
+export const checkAuth = async () => {
+    try {
+        const response = await api.get("/auth/check");
+        return response.data;
+    } catch (error) {
+        console.error("Auth check error:", error);
+        return { authenticated: false };
+    }
+}
