@@ -54,14 +54,16 @@ export default function Dashboard() {
 
   // Check for saved theme preference
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
@@ -69,11 +71,11 @@ export default function Dashboard() {
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   };
 
@@ -214,13 +216,18 @@ export default function Dashboard() {
     if (isDark) {
       const darkColors = {
         blue: "bg-blue-950/30 border-l-4 border-blue-500 hover:bg-blue-900/40",
-        green: "bg-green-950/30 border-l-4 border-green-500 hover:bg-green-900/40",
-        purple: "bg-purple-950/30 border-l-4 border-purple-500 hover:bg-purple-900/40",
-        yellow: "bg-yellow-950/30 border-l-4 border-yellow-500 hover:bg-yellow-900/40",
+        green:
+          "bg-green-950/30 border-l-4 border-green-500 hover:bg-green-900/40",
+        purple:
+          "bg-purple-950/30 border-l-4 border-purple-500 hover:bg-purple-900/40",
+        yellow:
+          "bg-yellow-950/30 border-l-4 border-yellow-500 hover:bg-yellow-900/40",
         pink: "bg-pink-950/30 border-l-4 border-pink-500 hover:bg-pink-900/40",
-        orange: "bg-orange-950/30 border-l-4 border-orange-500 hover:bg-orange-900/40",
+        orange:
+          "bg-orange-950/30 border-l-4 border-orange-500 hover:bg-orange-900/40",
         red: "bg-red-950/30 border-l-4 border-red-500 hover:bg-red-900/40",
-        indigo: "bg-indigo-950/30 border-l-4 border-indigo-500 hover:bg-indigo-900/40",
+        indigo:
+          "bg-indigo-950/30 border-l-4 border-indigo-500 hover:bg-indigo-900/40",
       };
       return darkColors[color] || darkColors.blue;
     } else {
@@ -275,7 +282,12 @@ export default function Dashboard() {
       bg: "bg-orange-100 dark:bg-orange-900/50",
       border: "border-orange-400 dark:border-orange-600",
     },
-    { name: "red", label: "Red", bg: "bg-red-100 dark:bg-red-900/50", border: "border-red-400 dark:border-red-600" },
+    {
+      name: "red",
+      label: "Red",
+      bg: "bg-red-100 dark:bg-red-900/50",
+      border: "border-red-400 dark:border-red-600",
+    },
     {
       name: "indigo",
       label: "Indigo",
@@ -312,31 +324,37 @@ export default function Dashboard() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark bg-linear-to-br from-gray-900 to-gray-800' : 'bg-gray-50'}`}>
+    <div
+      className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "dark bg-linear-to-br from-gray-900 to-gray-800" : "bg-gray-50"}`}
+    >
       {/* Top Navigation */}
-      <nav className={`fixed top-0 w-full z-30 transition-colors duration-300 ${
-        isDarkMode 
-          ? 'bg-gray-800/95 backdrop-blur-sm border-gray-700' 
-          : 'bg-white border-gray-200'
-      } border-b`}>
+      <nav
+        className={`fixed top-0 w-full z-30 transition-colors duration-300 ${
+          isDarkMode
+            ? "bg-gray-800/95 backdrop-blur-sm border-gray-700"
+            : "bg-white border-gray-200"
+        } border-b`}
+      >
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 className={`lg:hidden p-2 rounded-md transition-colors ${
-                  isDarkMode 
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  isDarkMode
+                    ? "text-gray-300 hover:text-white hover:bg-gray-700"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 } mr-2`}
               >
                 {isSidebarOpen ? <FiX size={20} /> : <FiMenu size={20} />}
               </button>
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 bg-linear-to-br from-blue-600 to-indigo-600 rounded-lg shadow-lg"></div>
-                <span className={`font-bold text-xl hidden sm:block transition-colors ${
-                  isDarkMode ? 'text-white' : 'text-gray-900'
-                }`}>
+                <span
+                  className={`font-bold text-xl hidden sm:block transition-colors ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   CloudNotes
                 </span>
               </div>
@@ -345,18 +363,20 @@ export default function Dashboard() {
             <div className="flex-1 max-w-lg mx-4">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiSearch className={`h-5 w-5 transition-colors ${
-                    isDarkMode ? 'text-gray-500' : 'text-gray-400'
-                  }`} />
+                  <FiSearch
+                    className={`h-5 w-5 transition-colors ${
+                      isDarkMode ? "text-gray-500" : "text-gray-400"
+                    }`}
+                  />
                 </div>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className={`block w-full pl-10 pr-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
-                      : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
+                    isDarkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
                   } border`}
                   placeholder="Search notes..."
                 />
@@ -368,26 +388,28 @@ export default function Dashboard() {
               <button
                 onClick={toggleDarkMode}
                 className={`p-2 rounded-lg transition-colors ${
-                  isDarkMode 
-                    ? 'text-yellow-400 hover:bg-gray-700' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  isDarkMode
+                    ? "text-yellow-400 hover:bg-gray-700"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
                 {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
               </button>
-              <button className={`p-2 rounded-lg transition-colors ${
-                isDarkMode 
-                  ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-              }`}>
+              <button
+                className={`p-2 rounded-lg transition-colors ${
+                  isDarkMode
+                    ? "text-gray-300 hover:text-white hover:bg-gray-700"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
                 <FiUser size={20} />
               </button>
               <button
                 onClick={handleLogout}
                 className={`p-2 rounded-lg transition-colors ${
-                  isDarkMode 
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  isDarkMode
+                    ? "text-gray-300 hover:text-white hover:bg-gray-700"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
                 <FiLogOut size={20} />
@@ -399,78 +421,90 @@ export default function Dashboard() {
 
       {/* Sidebar */}
       {/* Sidebar */}
-<div
-  className={`fixed inset-y-0 left-0 transform ${
-    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-  } lg:translate-x-0 transition duration-200 ease-in-out z-20 w-64 ${
-    isDarkMode 
-      ? 'bg-gray-800/95 backdrop-blur-sm border-gray-700' 
-      : 'bg-white border-gray-200'
-  } border-r`}
->
-  <div className="flex flex-col h-full pt-16 pb-4 px-4 justify-center">
-    <div className="space-y-1">
-      <button className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
-        isDarkMode 
-          ? 'text-white bg-gray-700' 
-          : 'text-gray-700 bg-gray-100'
-      }`}>
-        <FiFolder className="h-5 w-5" />
-        <span>All Notes</span>
-        <span className={`ml-auto text-sm ${
-          isDarkMode ? 'text-gray-400' : 'text-gray-500'
-        }`}>
-          {notes.length}
-        </span>
-      </button>
-      <button className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
-        isDarkMode 
-          ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
-          : 'text-gray-600 hover:bg-gray-50'
-      }`}>
-        <FiStar className="h-5 w-5" />
-        <span>Starred</span>
-        <span className={`ml-auto text-sm ${
-          isDarkMode ? 'text-gray-500' : 'text-gray-500'
-        }`}>
-          {starredCount}
-        </span>
-      </button>
-    </div>
-
-    <div className="mt-6">
-      <button
-        onClick={() => {
-          setIsEditMode(false);
-          setNewNote({ title: "", content: "", color: "blue" });
-          setIsNewNoteOpen(true);
-        }}
-        className={`w-full py-3 px-4 rounded-lg transition font-medium flex items-center justify-center space-x-2 ${
+      <div
+        className={`fixed inset-y-0 left-0 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 transition duration-200 ease-in-out z-20 w-64 ${
           isDarkMode
-            ? 'bg-gray-900 text-white hover:bg-gray-800' 
-            : 'bg-gray-900 text-white hover:bg-gray-800'
-        }`}
+            ? "bg-gray-800/95 backdrop-blur-sm border-gray-700"
+            : "bg-white border-gray-200"
+        } border-r`}
       >
-        <FiPlus size={18} />
-        <span>New Note</span>
-      </button>
-    </div>
-  </div>
-</div>
+        <div className="flex flex-col h-full pt-16 pb-4 px-4 justify-center">
+          <div className="space-y-1">
+            <button
+              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
+                isDarkMode
+                  ? "text-white bg-gray-700"
+                  : "text-gray-700 bg-gray-100"
+              }`}
+            >
+              <FiFolder className="h-5 w-5" />
+              <span>All Notes</span>
+              <span
+                className={`ml-auto text-sm ${
+                  isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
+                {notes.length}
+              </span>
+            </button>
+            <button
+              className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
+                isDarkMode
+                  ? "text-gray-300 hover:text-white hover:bg-gray-700"
+                  : "text-gray-600 hover:bg-gray-50"
+              }`}
+            >
+              <FiStar className="h-5 w-5" />
+              <span>Starred</span>
+              <span
+                className={`ml-auto text-sm ${
+                  isDarkMode ? "text-gray-500" : "text-gray-500"
+                }`}
+              >
+                {starredCount}
+              </span>
+            </button>
+          </div>
+
+          <div className="mt-6">
+            <button
+              onClick={() => {
+                setIsEditMode(false);
+                setNewNote({ title: "", content: "", color: "blue" });
+                setIsNewNoteOpen(true);
+              }}
+              className={`w-full py-3 px-4 rounded-lg transition font-medium flex items-center justify-center space-x-2 ${
+                isDarkMode
+                  ? "bg-gray-900 text-white hover:bg-gray-800"
+                  : "bg-gray-900 text-white hover:bg-gray-800"
+              }`}
+            >
+              <FiPlus size={18} />
+              <span>New Note</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="lg:ml-64 pt-16">
         <div className="p-4 sm:p-6 lg:p-8">
           {/* Welcome Header */}
           <div className="mb-8">
-            <h1 className={`text-2xl font-bold transition-colors ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h1
+              className={`text-2xl font-bold transition-colors ${
+                isDarkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
               Welcome back, {user?.username || "User"}!
             </h1>
-            <p className={`mt-1 transition-colors ${
-              isDarkMode ? 'text-gray-400' : 'text-gray-600'
-            }`}>
+            <p
+              className={`mt-1 transition-colors ${
+                isDarkMode ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
               You have {notes.length} notes. Keep up the great work!
             </p>
           </div>
@@ -490,11 +524,54 @@ export default function Dashboard() {
 
           {/* Loading State */}
           {loading ? (
-            <div className="flex justify-center items-center py-12">
-              <div className="animate-spin">
-                <FiSearch className={`h-8 w-8 ${
-                  isDarkMode ? 'text-gray-600' : 'text-gray-400'
-                }`} />
+            <div className="flex flex-col items-center justify-center py-12">
+              <div className="relative">
+                {/* Main container */}
+                <div className="relative bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-indigo-900/50 overflow-hidden">
+                  {/* Ambient light effects */}
+                  <div className="absolute -inset-40 bg-linear-to-r from-gray-200 via-gray-100 to-gray-200 dark:from-blue-600/20 dark:via-indigo-600/20 dark:to-purple-600/20 animate-slow-spin blur-3xl opacity-30"></div>
+
+                  {/* Content */}
+                  <div className="relative">
+                    <div className="flex items-center justify-center">
+                      <div className="relative">
+                        {/* Outer ring */}
+                        <div className="w-20 h-20 rounded-full border-2 border-gray-200 dark:border-indigo-800 animate-spin"></div>
+
+                        {/* Inner spinning gradient */}
+                        <div className="absolute inset-1 rounded-full bg-linear-to-r from-gray-300 to-gray-400 dark:from-indigo-400 dark:to-blue-500 animate-spin-slow"></div>
+
+                        {/* Center icon */}
+                        <div className="absolute inset-3 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
+                          <FiSearch className="h-6 w-6 text-gray-600 dark:text-indigo-200" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Text with glow effect */}
+                    <div className="mt-6 text-center">
+                      <p className="text-sm font-medium text-gray-600 dark:text-indigo-200 relative">
+                        <span className="relative z-10">
+                          Searching for your Notes
+                        </span>
+                        <span className="absolute inset-0 blur-md bg-gray-300 dark:bg-indigo-400 opacity-20 animate-pulse"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating particles */}
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-1 h-1 bg-gray-400 dark:bg-indigo-400 rounded-full animate-float-random"
+                    style={{
+                      top: `${Math.random() * 100}%`,
+                      left: `${Math.random() * 100}%`,
+                      animationDelay: `${i * 0.3}s`,
+                    }}
+                  ></div>
+                ))}
               </div>
             </div>
           ) : filteredNotes.length > 0 ? (
@@ -506,7 +583,7 @@ export default function Dashboard() {
                   <div
                     key={note.id}
                     className={`${getColorClasses(color, isDarkMode)} rounded-xl p-6 hover:shadow-xl transition-all duration-200 hover:-translate-y-1 cursor-pointer ${
-                      isDarkMode ? 'shadow-black/20' : ''
+                      isDarkMode ? "shadow-black/20" : ""
                     }`}
                     onClick={() => {
                       setSelectedNote(note);
@@ -514,23 +591,29 @@ export default function Dashboard() {
                     }}
                   >
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className={`font-semibold text-lg line-clamp-1 flex-1 ${
-                        isDarkMode ? 'text-white' : 'text-gray-900'
-                      }`}>
+                      <h3
+                        className={`font-semibold text-lg line-clamp-1 flex-1 ${
+                          isDarkMode ? "text-white" : "text-gray-900"
+                        }`}
+                      >
                         {note.title}
                       </h3>
                       {note.starred && (
                         <FiStar className="h-5 w-5 text-yellow-500 fill-yellow-500 ml-2" />
                       )}
                     </div>
-                    <p className={`text-sm line-clamp-3 mb-4 ${
-                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
+                    <p
+                      className={`text-sm line-clamp-3 mb-4 ${
+                        isDarkMode ? "text-gray-300" : "text-gray-600"
+                      }`}
+                    >
                       {note.content}
                     </p>
-                    <div className={`flex justify-between items-center text-xs ${
-                      isDarkMode ? 'text-gray-500' : 'text-gray-500'
-                    }`}>
+                    <div
+                      className={`flex justify-between items-center text-xs ${
+                        isDarkMode ? "text-gray-500" : "text-gray-500"
+                      }`}
+                    >
                       <span>{formatNoteDate(note.createdAt)}</span>
                       <div className="flex space-x-2">
                         <button
@@ -539,9 +622,9 @@ export default function Dashboard() {
                             handleEditNote(note);
                           }}
                           className={`p-1 rounded transition ${
-                            isDarkMode 
-                              ? 'hover:bg-white/10 text-gray-400 hover:text-white' 
-                              : 'hover:bg-white/50 text-gray-600 hover:text-gray-900'
+                            isDarkMode
+                              ? "hover:bg-white/10 text-gray-400 hover:text-white"
+                              : "hover:bg-white/50 text-gray-600 hover:text-gray-900"
                           }`}
                           title="Edit note"
                         >
@@ -553,9 +636,9 @@ export default function Dashboard() {
                             setDeleteConfirmModal(note.id);
                           }}
                           className={`p-1 rounded transition ${
-                            isDarkMode 
-                              ? 'hover:bg-white/10 text-red-400 hover:text-red-300' 
-                              : 'hover:bg-white/50 text-red-600 hover:text-red-800'
+                            isDarkMode
+                              ? "hover:bg-white/10 text-red-400 hover:text-red-300"
+                              : "hover:bg-white/50 text-red-600 hover:text-red-800"
                           }`}
                           title="Delete note"
                         >
@@ -570,19 +653,25 @@ export default function Dashboard() {
           ) : (
             /* Empty State */
             <div className="text-center py-12">
-              <div className={`mb-4 transition-colors ${
-                isDarkMode ? 'text-gray-700' : 'text-gray-400'
-              }`}>
+              <div
+                className={`mb-4 transition-colors ${
+                  isDarkMode ? "text-gray-700" : "text-gray-400"
+                }`}
+              >
                 <FiSearch className="h-12 w-12 mx-auto" />
               </div>
-              <h3 className={`text-lg font-medium mb-2 transition-colors ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+              <h3
+                className={`text-lg font-medium mb-2 transition-colors ${
+                  isDarkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
                 No notes found
               </h3>
-              <p className={`transition-colors ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-600'
-              }`}>
+              <p
+                className={`transition-colors ${
+                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 {searchQuery
                   ? "Try searching with different keywords"
                   : "Create your first note to get started"}
@@ -595,17 +684,23 @@ export default function Dashboard() {
       {/* New/Edit Note Modal */}
       {isNewNoteOpen && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-          <div className={`rounded-2xl max-w-lg w-full shadow-2xl transition-colors ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
-          }`}>
-            <div className={`flex justify-between items-center px-6 pt-6 pb-4 border-b ${
-              isDarkMode ? 'border-gray-700' : 'border-gray-100'
-            }`}>
+          <div
+            className={`rounded-2xl max-w-lg w-full shadow-2xl transition-colors ${
+              isDarkMode ? "bg-gray-800" : "bg-white"
+            }`}
+          >
+            <div
+              className={`flex justify-between items-center px-6 pt-6 pb-4 border-b ${
+                isDarkMode ? "border-gray-700" : "border-gray-100"
+              }`}
+            >
               <div className="flex items-center space-x-2">
                 <div className="w-6 h-6 bg-linear-to-br from-blue-600 to-indigo-600 rounded-md"></div>
-                <h2 className={`text-lg font-bold transition-colors ${
-                  isDarkMode ? 'text-white' : 'text-gray-900'
-                }`}>
+                <h2
+                  className={`text-lg font-bold transition-colors ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   {isEditMode ? "Edit Note" : "New Note"}
                 </h2>
               </div>
@@ -616,9 +711,9 @@ export default function Dashboard() {
                   setNewNote({ title: "", content: "" });
                 }}
                 className={`p-2 rounded-lg transition-colors ${
-                  isDarkMode 
-                    ? 'hover:bg-gray-700 text-gray-400 hover:text-white' 
-                    : 'hover:bg-gray-100 text-gray-500 hover:text-gray-900'
+                  isDarkMode
+                    ? "hover:bg-gray-700 text-gray-400 hover:text-white"
+                    : "hover:bg-gray-100 text-gray-500 hover:text-gray-900"
                 }`}
               >
                 <FiX size={18} />
@@ -627,9 +722,11 @@ export default function Dashboard() {
 
             <div className="px-6 py-5 space-y-4">
               <div>
-                <label className={`block text-xs font-semibold uppercase tracking-wide mb-1.5 transition-colors ${
-                  isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                }`}>
+                <label
+                  className={`block text-xs font-semibold uppercase tracking-wide mb-1.5 transition-colors ${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
                   Title
                 </label>
                 <input
@@ -640,18 +737,20 @@ export default function Dashboard() {
                   }
                   placeholder="Give your note a title..."
                   className={`w-full px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-500' 
-                      : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
+                    isDarkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-500"
+                      : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
                   } border`}
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className={`block text-xs font-semibold uppercase tracking-wide mb-1.5 transition-colors ${
-                  isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                }`}>
+                <label
+                  className={`block text-xs font-semibold uppercase tracking-wide mb-1.5 transition-colors ${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
                   Content
                 </label>
                 <textarea
@@ -662,9 +761,9 @@ export default function Dashboard() {
                   placeholder="Start writing..."
                   rows={5}
                   className={`w-full px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none ${
-                    isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-500' 
-                      : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'
+                    isDarkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-500"
+                      : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
                   } border`}
                 />
               </div>
@@ -678,9 +777,9 @@ export default function Dashboard() {
                   setNewNote({ title: "", content: "", color: "blue" });
                 }}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  isDarkMode 
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-700' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  isDarkMode
+                    ? "text-gray-300 hover:text-white hover:bg-gray-700"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`}
               >
                 Cancel
@@ -692,8 +791,8 @@ export default function Dashboard() {
                 }
                 className={`px-5 py-2 text-sm font-medium rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center space-x-2 ${
                   isDarkMode
-                    ? 'bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700'
-                    : 'bg-gray-900 text-white hover:bg-gray-800'
+                    ? "bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700"
+                    : "bg-gray-900 text-white hover:bg-gray-800"
                 }`}
               >
                 <FiPlus size={15} />
@@ -709,35 +808,43 @@ export default function Dashboard() {
       {/* Note Detail Modal (Read-only) */}
       {selectedNote && !isEditMode && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-          <div className={`rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto transition-colors ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
-          }`}>
+          <div
+            className={`rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto transition-colors ${
+              isDarkMode ? "bg-gray-800" : "bg-white"
+            }`}
+          >
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <h2 className={`text-2xl font-bold transition-colors ${
-                  isDarkMode ? 'text-white' : 'text-gray-900'
-                }`}>
+                <h2
+                  className={`text-2xl font-bold transition-colors ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   {selectedNote.title}
                 </h2>
                 <button
                   onClick={() => setSelectedNote(null)}
                   className={`p-2 rounded-lg transition-colors ${
-                    isDarkMode 
-                      ? 'hover:bg-gray-700 text-gray-400 hover:text-white' 
-                      : 'hover:bg-gray-100 text-gray-500 hover:text-gray-900'
+                    isDarkMode
+                      ? "hover:bg-gray-700 text-gray-400 hover:text-white"
+                      : "hover:bg-gray-100 text-gray-500 hover:text-gray-900"
                   }`}
                 >
                   <FiX size={20} />
                 </button>
               </div>
-              <p className={`whitespace-pre-wrap mb-6 transition-colors ${
-                isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
+              <p
+                className={`whitespace-pre-wrap mb-6 transition-colors ${
+                  isDarkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
                 {selectedNote.content}
               </p>
-              <div className={`text-sm pb-6 transition-colors ${
-                isDarkMode ? 'text-gray-500' : 'text-gray-500'
-              }`}>
+              <div
+                className={`text-sm pb-6 transition-colors ${
+                  isDarkMode ? "text-gray-500" : "text-gray-500"
+                }`}
+              >
                 <p>
                   Last edited:{" "}
                   {new Date(selectedNote.lastEdited).toLocaleString("en-GB", {
@@ -758,21 +865,27 @@ export default function Dashboard() {
       {/* Delete Confirmation Modal */}
       {deleteConfirmModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-          <div className={`rounded-2xl max-w-sm w-full shadow-2xl transition-colors ${
-            isDarkMode ? 'bg-gray-800' : 'bg-white'
-          }`}>
+          <div
+            className={`rounded-2xl max-w-sm w-full shadow-2xl transition-colors ${
+              isDarkMode ? "bg-gray-800" : "bg-white"
+            }`}
+          >
             <div className="p-6">
               <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
                 <FiTrash2 className="h-6 w-6 text-red-600 dark:text-red-400" />
               </div>
-              <h3 className={`text-lg font-bold text-center mb-2 transition-colors ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}>
+              <h3
+                className={`text-lg font-bold text-center mb-2 transition-colors ${
+                  isDarkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
                 Delete Note?
               </h3>
-              <p className={`text-center mb-6 transition-colors ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-600'
-              }`}>
+              <p
+                className={`text-center mb-6 transition-colors ${
+                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 Are you sure you want to delete this note? This action cannot be
                 undone.
               </p>
@@ -780,9 +893,9 @@ export default function Dashboard() {
                 <button
                   onClick={() => setDeleteConfirmModal(null)}
                   className={`flex-1 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors ${
-                    isDarkMode 
-                      ? 'text-gray-300 bg-gray-700 hover:bg-gray-600' 
-                      : 'text-gray-700 bg-gray-100 hover:bg-gray-200'
+                    isDarkMode
+                      ? "text-gray-300 bg-gray-700 hover:bg-gray-600"
+                      : "text-gray-700 bg-gray-100 hover:bg-gray-200"
                   }`}
                 >
                   Cancel
