@@ -11,6 +11,7 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     const verifyPath = async () => {
+      setIsLoading(true);
       try {
         const authStatus = await checkAuth();
 
@@ -33,7 +34,7 @@ export default function ProtectedRoute({ children }) {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <div className="animate-spin">
+        <div className="animate-spin" data-testid="loading-spinner">
           <div className="h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
         </div>
       </div>
